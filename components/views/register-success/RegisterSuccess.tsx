@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import React, { useState, useEffect } from "react";
-import { CheckCircle, Package, ArrowRight } from "lucide-react";
+import { CheckCircle, ArrowRight } from "lucide-react";
 
 import { Button } from "../../ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "../../ui/card";
@@ -18,9 +18,7 @@ export default function RegisterSuccess() {
         if (prev <= 1) {
           setIsRedirecting(true);
           clearInterval(timer);
-          // Auto redirect to login after countdown
           setTimeout(() => {
-            // In real Next.js app, use: router.push('/login')
             router.push("/login");
           }, 500);
           return 0;
@@ -33,7 +31,6 @@ export default function RegisterSuccess() {
 
   const handleGoToLogin = () => {
     setIsRedirecting(true);
-    // In real Next.js app, use: router.push('/login')
     setTimeout(() => {
       router.push("/login");
     }, 500);
@@ -43,13 +40,6 @@ export default function RegisterSuccess() {
     <div className="w-full max-w-lg">
       <Card className="shadow-xl border-0 bg-white/90 backdrop-blur-sm py-10">
         <CardHeader className="text-center">
-          {/* Logo */}
-          {/* <div className="flex items-center justify-center mb-6">
-            <div className="p-4 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-full shadow-lg">
-              <Package className="h-10 w-10 text-white" />
-            </div>
-          </div> */}
-
           {/* Success Animation */}
           <div className="relative mb-8">
             <div className="flex items-center justify-center">

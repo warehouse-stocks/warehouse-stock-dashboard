@@ -1,6 +1,6 @@
 "use client";
 
-import { Box } from "lucide-react";
+import Link from "next/link";
 
 import { Input } from "../../ui/input";
 import { Button } from "../../ui/button";
@@ -23,24 +23,18 @@ import {
 } from "../../ui/form";
 
 import useRegister from "./useRegister";
-import Link from "next/link";
+import Logo from "@/components/ui/logo";
 const RegisterForm = () => {
   const { form, control, errors, handleSubmit, handleRegister } = useRegister();
 
   return (
     <Form {...form}>
-      <form
-        action=""
-        className="w-full"
-        onSubmit={handleSubmit(handleRegister)}
-      >
-        <Card className="py-20">
+      <form className="w-full" onSubmit={handleSubmit(handleRegister)}>
+        <Card className="py-10">
           <CardHeader className="text-center flex flex-col items-center gap-4">
-            <div className="w-16 h-16 rounded-full bg-blue-500 flex items-center justify-center ">
-              <Box className="text-white" size={40} />
-            </div>
+            <Logo className="w-10 h-10" />
             <CardTitle className="text-4xl">StockIn</CardTitle>
-            <CardDescription className="text-md text-semibold">
+            <CardDescription className="text-md font-semibold text-gray-700">
               Register a new account
             </CardDescription>
           </CardHeader>
@@ -136,7 +130,7 @@ const RegisterForm = () => {
 
           <CardFooter className="flex justify-center items-center text-gray-500">
             Already have an account?
-            <Link href="/login" className="text-blue-500 mx-1 hover:underline">
+            <Link href="/login" className="text-blue-600 mx-1 hover:underline">
               Login here
             </Link>
           </CardFooter>

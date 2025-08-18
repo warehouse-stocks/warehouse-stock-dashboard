@@ -1,8 +1,9 @@
 "use client";
 
-import { Box } from "lucide-react";
+import Link from "next/link";
 
 import { Input } from "../../ui/input";
+import Logo from "@/components/ui/logo";
 import { Button } from "../../ui/button";
 import { PasswordInput } from "../../ui/password-input";
 import {
@@ -29,14 +30,12 @@ const LoginForm = () => {
 
   return (
     <Form {...form}>
-      <form action="" className="w-full" onSubmit={handleSubmit(handleLogin)}>
+      <form className="w-full" onSubmit={handleSubmit(handleLogin)}>
         <Card className="py-20">
           <CardHeader className="text-center flex flex-col items-center gap-4">
-            <div className="w-16 h-16 rounded-full bg-blue-500 flex items-center justify-center ">
-              <Box className="text-white" size={40} />
-            </div>
+            <Logo className="w-10 h-10" />
             <CardTitle className="text-4xl">StockIn</CardTitle>
-            <CardDescription className="text-md">
+            <CardDescription className="text-md font-semibold text-gray-700">
               Login to your account
             </CardDescription>
           </CardHeader>
@@ -60,7 +59,7 @@ const LoginForm = () => {
                         id="identifier"
                         type="text"
                         {...field}
-                        placeholder="Enter your email"
+                        placeholder="Enter your email/username"
                         className={`w-[300px] text-base px-4 ${
                           errors.identifier || errors.root
                             ? "border-red-500"
@@ -107,6 +106,16 @@ const LoginForm = () => {
             >
               Login
             </Button>
+          </CardFooter>
+
+          <CardFooter className="flex justify-center items-center text-gray-500">
+            Don&apos;t have an account?
+            <Link
+              href="/register"
+              className="text-blue-600 mx-1 hover:underline"
+            >
+              Create account
+            </Link>
           </CardFooter>
         </Card>
       </form>
