@@ -3,7 +3,6 @@
 import Link from "next/link";
 
 import { Input } from "../../ui/input";
-import Logo from "@/components/ui/logo";
 import { Button } from "../../ui/button";
 import { PasswordInput } from "../../ui/password-input";
 import {
@@ -23,20 +22,20 @@ import {
   FormMessage,
 } from "../../ui/form";
 
-import useLogin from "./useLogin";
-
-const LoginForm = () => {
-  const { form, control, errors, handleSubmit, handleLogin } = useLogin();
+import useRegister from "./useRegister";
+import Logo from "@/components/ui/logo";
+const RegisterForm = () => {
+  const { form, control, errors, handleSubmit, handleRegister } = useRegister();
 
   return (
     <Form {...form}>
-      <form className="w-full" onSubmit={handleSubmit(handleLogin)}>
-        <Card className="py-20">
+      <form className="w-full" onSubmit={handleSubmit(handleRegister)}>
+        <Card className="py-10">
           <CardHeader className="text-center flex flex-col items-center gap-4">
             <Logo className="w-10 h-10" />
             <CardTitle className="text-4xl">StockIn</CardTitle>
             <CardDescription className="text-md font-semibold text-gray-700">
-              Login to your account
+              Register a new account
             </CardDescription>
           </CardHeader>
 
@@ -49,21 +48,43 @@ const LoginForm = () => {
             )}
             <FormField
               control={control}
-              name="identifier"
+              name="username"
               render={({ field }) => {
                 return (
                   <FormItem>
-                    <FormLabel>Email/Username</FormLabel>
+                    <FormLabel>Username</FormLabel>
                     <FormControl>
                       <Input
-                        id="identifier"
+                        id="username"
                         type="text"
                         {...field}
-                        placeholder="Enter your email/username"
+                        placeholder="Enter your username"
                         className={`w-[300px] text-base px-4 ${
-                          errors.identifier || errors.root
-                            ? "border-red-500"
-                            : ""
+                          errors.username || errors.root ? "border-red-500" : ""
+                        }`}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                );
+              }}
+            />
+
+            <FormField
+              control={control}
+              name="email"
+              render={({ field }) => {
+                return (
+                  <FormItem>
+                    <FormLabel>Email</FormLabel>
+                    <FormControl>
+                      <Input
+                        id="email"
+                        type="text"
+                        {...field}
+                        placeholder="Enter your email"
+                        className={`w-[300px] text-base px-4 ${
+                          errors.email || errors.root ? "border-red-500" : ""
                         }`}
                       />
                     </FormControl>
@@ -83,7 +104,6 @@ const LoginForm = () => {
                     <FormControl>
                       <PasswordInput
                         id="password"
-                        type="password"
                         {...field}
                         placeholder="Enter your password"
                         className={`w-[300px] text-base px-4 ${
@@ -104,17 +124,14 @@ const LoginForm = () => {
               className="w-[300px] cursor-pointer"
               variant="default"
             >
-              Login
+              Register
             </Button>
           </CardFooter>
 
           <CardFooter className="flex justify-center items-center text-gray-500">
-            Don&apos;t have an account?
-            <Link
-              href="/register"
-              className="text-blue-600 mx-1 hover:underline"
-            >
-              Create account
+            Already have an account?
+            <Link href="/login" className="text-blue-600 mx-1 hover:underline">
+              Login here
             </Link>
           </CardFooter>
         </Card>
@@ -123,4 +140,4 @@ const LoginForm = () => {
   );
 };
 
-export default LoginForm;
+export default RegisterForm;
