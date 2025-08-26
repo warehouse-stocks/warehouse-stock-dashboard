@@ -7,5 +7,11 @@ const authServices = {
     axiosInstance.post(`${endpoint.AUTH}/register`, payload),
   login: (payload: ILogin) =>
     axiosInstance.post(`${endpoint.AUTH}/login`, payload),
+  getProfileWithToken: (token: string) =>
+    axiosInstance.get(`${endpoint.USERS}/me`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }),
 };
 export default authServices;

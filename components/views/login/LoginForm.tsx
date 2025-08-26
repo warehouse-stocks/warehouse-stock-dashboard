@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 
+import useLogin from "./useLogin";
 import { Input } from "../../ui/input";
 import Logo from "@/components/ui/logo";
 import { Button } from "../../ui/button";
@@ -23,7 +24,6 @@ import {
   FormMessage,
 } from "../../ui/form";
 
-import useLogin from "./useLogin";
 
 const LoginForm = () => {
   const { form, control, errors, handleSubmit, handleLogin } = useLogin();
@@ -83,7 +83,6 @@ const LoginForm = () => {
                     <FormControl>
                       <PasswordInput
                         id="password"
-                        type="password"
                         {...field}
                         placeholder="Enter your password"
                         className={`w-[300px] text-base px-4 ${
