@@ -110,7 +110,7 @@ const LoginForm = () => {
           <CardFooter className="flex justify-center items-center text-gray-500">
             Don&apos;t have an account?
             <Link
-              href="/register"
+              href="/auth/register"
               className="text-blue-600 mx-1 hover:underline"
             >
               Create account
