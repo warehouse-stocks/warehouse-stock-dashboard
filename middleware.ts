@@ -11,12 +11,14 @@ export const middleware = async (req: NextRequest) => {
   const { pathname } = req.nextUrl;
 
   if (token && pathname.startsWith("/auth")) {
-    return NextResponse.redirect(new URL("/", req.url));
+    return NextResponse.redirect(new URL("/dashboard", req.url));
   }
 
   if (!token && pathname.startsWith("/dashboard")) {
     return NextResponse.redirect(new URL("/auth/login", req.url));
   }
+
+  return NextResponse.next();
 };
 
 export const config = {

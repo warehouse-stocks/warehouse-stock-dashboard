@@ -58,11 +58,11 @@ const useLogin = () => {
     }
   };
 
-  const { mutate: mutateLogin, isPending } = useMutation({
+  const { mutate: mutateLogin, isPending: isLoggedIn } = useMutation({
     mutationFn: loginService,
     onSuccess: (data) => {
       console.log("Login successful:", data);
-      router.push(callbackUrl);
+      router.push("/dashboard");
     },
     onError: (error) => {
       setError("root", {
@@ -79,7 +79,7 @@ const useLogin = () => {
     errors,
     handleSubmit,
     handleLogin,
-    isPending,
+    isLoggedIn,
     form,
   };
 };

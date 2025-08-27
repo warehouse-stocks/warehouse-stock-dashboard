@@ -23,10 +23,11 @@ import {
   FormLabel,
   FormMessage,
 } from "../../ui/form";
-
+import { LoaderCircle } from "lucide-react";
 
 const LoginForm = () => {
-  const { form, control, errors, handleSubmit, handleLogin } = useLogin();
+  const { form, control, errors, handleSubmit, handleLogin, isLoggedIn } =
+    useLogin();
 
   return (
     <Form {...form}>
@@ -100,9 +101,12 @@ const LoginForm = () => {
           <CardFooter className="flex justify-center items-center">
             <Button
               type="submit"
-              className="w-[300px] cursor-pointer"
+              className={`w-[300px] cursor-pointer flex items-center ${
+                isLoggedIn && `cursor-not-allowed opacity-70`
+              }`}
               variant="default"
             >
+              {isLoggedIn && <LoaderCircle className="animate-spin" />}
               Login
             </Button>
           </CardFooter>
