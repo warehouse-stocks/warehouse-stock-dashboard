@@ -1,10 +1,9 @@
 "use client";
 
 import Link from "next/link";
+import { signOut } from "next-auth/react";
 import { usePathname } from "next/navigation";
 import { Package, Boxes, BarChart3, TrendingUp, LogOut } from "lucide-react";
-import { signOut } from "next-auth/react";
-import { Button } from "@/components/ui/button";
 
 const ADMIN_SIDEBAR_LINKS = [
   { name: "Overview", href: "/dashboard", icon: BarChart3 },

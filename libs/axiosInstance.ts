@@ -1,11 +1,11 @@
 import axios from "axios";
+import { Session } from "next-auth";
 import { getSession } from "next-auth/react";
 
-import { SessionExtended } from "@/types/Auth";
 import environment from "@/configs/environment";
 
-const headers = { "Content-Type": "application/json" };
 
+const headers = { "Content-Type": "application/json" };
 const axiosInstance = axios.create({
   baseURL: environment.API_URL,
   headers,
@@ -15,7 +15,7 @@ const axiosInstance = axios.create({
 axiosInstance.interceptors.request.use(
   async (request) => {
     // Add any request interceptors here if needed
-    const session: SessionExtended | null = await getSession();
+    const session: Session | null = await getSession();
 
     if (session && session.accessToken) {
       request.headers.Authorization = `Bearer ${session.accessToken}`;
