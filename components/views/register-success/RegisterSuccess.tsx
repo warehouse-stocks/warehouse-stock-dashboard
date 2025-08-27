@@ -19,7 +19,7 @@ export default function RegisterSuccess() {
           setIsRedirecting(true);
           clearInterval(timer);
           setTimeout(() => {
-            router.push("/login");
+            router.push("/auth/login");
           }, 500);
           return 0;
         }
@@ -32,7 +32,7 @@ export default function RegisterSuccess() {
   const handleGoToLogin = () => {
     setIsRedirecting(true);
     setTimeout(() => {
-      router.push("/login");
+      router.push("/auth/login");
     }, 500);
   };
 
@@ -126,14 +126,6 @@ export default function RegisterSuccess() {
           </div>
         </CardContent>
       </Card>
-      {/* Welcome Message */}
-      {/* <div className="mt-6 text-center">
-        <p className="text-gray-600 text-sm">
-          Selamat bergabung dengan{" "}
-          <span className="font-semibold text-blue-600">StockIn</span> 🎉
-        </p>
-      </div> */}
     </div>
-    // </div>
   );
 }

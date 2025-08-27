@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 
+import useLogin from "./useLogin";
 import { Input } from "../../ui/input";
 import Logo from "@/components/ui/logo";
 import { Button } from "../../ui/button";
@@ -22,11 +23,11 @@ import {
   FormLabel,
   FormMessage,
 } from "../../ui/form";
-
-import useLogin from "./useLogin";
+import { LoaderCircle } from "lucide-react";
 
 const LoginForm = () => {
-  const { form, control, errors, handleSubmit, handleLogin } = useLogin();
+  const { form, control, errors, handleSubmit, handleLogin, isLoggedIn } =
+    useLogin();
 
   return (
     <Form {...form}>
@@ -83,7 +84,6 @@ const LoginForm = () => {
                     <FormControl>
                       <PasswordInput
                         id="password"
-                        type="password"
                         {...field}
                         placeholder="Enter your password"
                         className={`w-[300px] text-base px-4 ${
@@ -101,9 +101,12 @@ const LoginForm = () => {
           <CardFooter className="flex justify-center items-center">
             <Button
               type="submit"
-              className="w-[300px] cursor-pointer"
+              className={`w-[300px] cursor-pointer flex items-center ${
+                isLoggedIn && `cursor-not-allowed opacity-70`
+              }`}
               variant="default"
             >
+              {isLoggedIn && <LoaderCircle className="animate-spin" />}
               Login
             </Button>
           </CardFooter>
@@ -111,7 +114,7 @@ const LoginForm = () => {
           <CardFooter className="flex justify-center items-center text-gray-500">
             Don&apos;t have an account?
             <Link
-              href="/register"
+              href="/auth/register"
               className="text-blue-600 mx-1 hover:underline"
             >
               Create account

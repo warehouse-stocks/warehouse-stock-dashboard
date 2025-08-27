@@ -1,14 +1,14 @@
 "use client";
 
 import z from "zod";
+import { AxiosError } from "axios";
+import { signIn } from "next-auth/react";
 import { useForm } from "react-hook-form";
-import { useRouter } from "next/navigation";
 import { useMutation } from "@tanstack/react-query";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useRouter, useSearchParams } from "next/navigation";
 
 import { ILogin } from "@/types/Auth";
-import authServices from "@/services/auth";
-import { AxiosError } from "axios";
 
 const loginSchema = z.object({
   identifier: z.string().nonempty("Invalid email/username"),
@@ -17,6 +17,10 @@ const loginSchema = z.object({
 
 const useLogin = () => {
   const router = useRouter();
+  const searchParams = useSearchParams();
+
+  const callbackUrl: string =
+    (searchParams.get("callbackUrl") as string) || "/";
 
   const form = useForm<ILogin>({
     resolver: zodResolver(loginSchema),
@@ -35,7 +39,16 @@ const useLogin = () => {
 
   const loginService = async (payload: ILogin) => {
     try {
-      const result = await authServices.login(payload);
+      const result = await signIn("credentials", {
+        ...payload,
+        redirect: false,
+        callbackUrl,
+      });
+
+      if (result?.error) {
+        throw new Error(result.error);
+      }
+
       return result;
     } catch (error: unknown) {
       if (error instanceof AxiosError && error.response?.data?.message) {
@@ -45,11 +58,11 @@ const useLogin = () => {
     }
   };
 
-  const { mutate: mutateLogin, isPending } = useMutation({
+  const { mutate: mutateLogin, isPending: isLoggedIn } = useMutation({
     mutationFn: loginService,
     onSuccess: (data) => {
       console.log("Login successful:", data);
-      router.push("/");
+      router.push("/dashboard");
     },
     onError: (error) => {
       setError("root", {
@@ -66,7 +79,7 @@ const useLogin = () => {
     errors,
     handleSubmit,
     handleLogin,
-    isPending,
+    isLoggedIn,
     form,
   };
 };

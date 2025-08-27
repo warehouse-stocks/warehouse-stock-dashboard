@@ -3,6 +3,8 @@
 import Link from "next/link";
 
 import { Input } from "../../ui/input";
+import Logo from "@/components/ui/logo";
+import useRegister from "./useRegister";
 import { Button } from "../../ui/button";
 import { PasswordInput } from "../../ui/password-input";
 import {
@@ -22,8 +24,6 @@ import {
   FormMessage,
 } from "../../ui/form";
 
-import useRegister from "./useRegister";
-import Logo from "@/components/ui/logo";
 const RegisterForm = () => {
   const { form, control, errors, handleSubmit, handleRegister } = useRegister();
 
@@ -130,7 +130,10 @@ const RegisterForm = () => {
 
           <CardFooter className="flex justify-center items-center text-gray-500">
             Already have an account?
-            <Link href="/login" className="text-blue-600 mx-1 hover:underline">
+            <Link
+              href="/auth/login"
+              className="text-blue-600 mx-1 hover:underline"
+            >
               Login here
             </Link>
           </CardFooter>
