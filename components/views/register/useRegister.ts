@@ -1,6 +1,7 @@
 "use client";
 
 import z from "zod";
+import { AxiosError } from "axios";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import { useMutation } from "@tanstack/react-query";
@@ -8,13 +9,11 @@ import { zodResolver } from "@hookform/resolvers/zod";
 
 import { IRegister } from "@/types/Auth";
 import authServices from "@/services/auth";
-import { AxiosError } from "axios";
 
 const registerSchema = z.object({
   username: z.string().nonempty("Invalid email/username"),
   email: z.string().email("Invalid email format"),
   password: z.string().min(8, "Password must be at least 8 characters"),
-  // role: z.string().optional(),
 });
 
 const useRegister = () => {
@@ -48,16 +47,15 @@ const useRegister = () => {
     }
   };
 
-  const { mutate: mutateRegister, isPending } = useMutation({
+  const { mutate: mutateRegister, isPending: isRegistering } = useMutation({
     mutationFn: registerService,
     onSuccess: (data) => {
-      router.push("/register/success");
+      router.push("/register-success");
       console.log("Register successful:", data);
-      // router.push("/");
     },
     onError: (error) => {
       setError("root", {
-        message: error.message,
+        message: "Email/username already in use",
       });
       console.error("Login error:", error);
     },
@@ -70,7 +68,7 @@ const useRegister = () => {
     errors,
     handleSubmit,
     handleRegister,
-    isPending,
+    isRegistering,
     form,
   };
 };

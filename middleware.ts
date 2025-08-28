@@ -10,6 +10,14 @@ export const middleware = async (req: NextRequest) => {
   });
   const { pathname } = req.nextUrl;
 
+  if (!token && pathname === "/") {
+    return NextResponse.redirect(new URL("/auth/login", req.url));
+  }
+
+  if (token && pathname === "/") {
+    return NextResponse.redirect(new URL("/auth/login", req.url));
+  }
+
   if (token && pathname.startsWith("/auth")) {
     return NextResponse.redirect(new URL("/dashboard", req.url));
   }
@@ -22,5 +30,5 @@ export const middleware = async (req: NextRequest) => {
 };
 
 export const config = {
-  matcher: ["/auth/:path*", "/dashboard/:path*"],
+  matcher: ["/auth/:path*", "/dashboard/:path*", "/"],
 };

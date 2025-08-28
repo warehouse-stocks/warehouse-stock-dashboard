@@ -1,5 +1,5 @@
-import HeaderDashboard from "@/components/views/dashboard/HeaderDashboard";
 import Sidebar from "@/components/views/sidebar/Sidebar";
+import HeaderDashboard from "@/components/views/dashboard/HeaderDashboard";
 
 export default function DashboardLayout({
   children,
@@ -7,7 +7,7 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="flex min-h-screen bg-gradient-to-br from-blue-50 to-slate-100">
+    <div className="flex min-h-screen bg-gradient-to-br from-blue-50 to-slate-100 w-full">
       {/* SidebarLayout */}
       <div className="w-64 p-4 bg-white shadow-sm">
         <Sidebar />

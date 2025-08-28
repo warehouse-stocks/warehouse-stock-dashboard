@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useState, useEffect } from "react";
 import { CheckCircle, ArrowRight } from "lucide-react";
@@ -99,10 +100,10 @@ export default function RegisterSuccess() {
                 Mengarahkan...
               </div>
             ) : (
-              <div className="flex items-center">
+              <Link href="/auth/login" className="flex items-center">
                 Masuk ke StockIn
                 <ArrowRight className="ml-3 h-5 w-5" />
-              </div>
+              </Link>
             )}
           </Button>
 
