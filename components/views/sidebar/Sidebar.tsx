@@ -3,7 +3,10 @@
 import Link from "next/link";
 import { signOut } from "next-auth/react";
 import { usePathname } from "next/navigation";
+import { useMutation } from "@tanstack/react-query";
 import { Package, Boxes, BarChart3, TrendingUp, LogOut } from "lucide-react";
+
+import Loading from "@/app/loading";
 
 const ADMIN_SIDEBAR_LINKS = [
   { name: "Overview", href: "/dashboard", icon: BarChart3 },
@@ -13,6 +16,15 @@ const ADMIN_SIDEBAR_LINKS = [
 
 const Sidebar = () => {
   const pathname = usePathname();
+  const { isPending: isLoggedOut, mutate: logOut } = useMutation({
+    mutationFn: async () => {
+      await signOut();
+    },
+  });
+
+  if (isLoggedOut) {
+    return <Loading />;
+  }
 
   return (
     <aside className="flex flex-col justify-between h-full">
@@ -52,7 +64,7 @@ const Sidebar = () => {
         <hr className="my-3" />
         <button
           className="flex items-center gap-1 px-4 py-3 cursor-pointer"
-          onClick={() => signOut()}
+          onClick={() => logOut()}
         >
           <LogOut size={24} className="text-red-600" />
           <span className="text-red-600 font-semibold">Logout</span>

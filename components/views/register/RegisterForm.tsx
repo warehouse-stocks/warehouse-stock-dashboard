@@ -23,9 +23,11 @@ import {
   FormLabel,
   FormMessage,
 } from "../../ui/form";
+import { LoaderCircle } from "lucide-react";
 
 const RegisterForm = () => {
-  const { form, control, errors, handleSubmit, handleRegister } = useRegister();
+  const { form, control, errors, handleSubmit, handleRegister, isRegistering } =
+    useRegister();
 
   return (
     <Form {...form}>
@@ -121,9 +123,12 @@ const RegisterForm = () => {
           <CardFooter className="flex justify-center items-center">
             <Button
               type="submit"
-              className="w-[300px] cursor-pointer"
+              className={`w-[300px] cursor-pointer flex items-center ${
+                isRegistering && `cursor-not-allowed opacity-70`
+              }`}
               variant="default"
             >
+              {isRegistering && <LoaderCircle className="animate-spin" />}
               Register
             </Button>
           </CardFooter>
